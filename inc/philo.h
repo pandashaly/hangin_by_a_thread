@@ -64,34 +64,33 @@ typedef struct s_data
 }	t_data;
 
 /*     ROUTINE     */
-
 void			*ft_routine(void *p);
 void			ft_taken_chopstick(t_philo *philo);
 void			ft_eat(t_philo *philo);
 void			ft_nap(t_philo *philo);
 void			ft_think(t_philo *philo);
 void			ft_dead(t_philo *philo);
+bool			ft_eating(t_philo *philo);
 void			ft_zookeeper(t_data *data);
 
 /*     INIT     */
-
-int				ft_parser(t_data *data, int ac, char **av);
 void			ft_init_data(t_data *data);
 void			ft_init_philos(t_data *data);
 void			ft_init_mutexes(t_data *data);
-void			ft_exit(t_data *data);
 void			ft_init_threads(t_data *data);
+
+/*     PARSER     */
+int				ft_parser(t_data *data, int ac, char **av);
+int				ft_arg_check(char **av);
+int				ft_atoi(const char *nptr);
+int				ft_limits(t_data *data);
 
 /*     UTILS     */
 void			ft_write(t_philo *philo, const char *msg);
 bool			ft_full(t_data *data);
 long			ft_time(void);
 void			ft_usleep(long time);
-int				ft_atoi(const char *nptr);
-int				ft_isdigit(int c);
-int				ft_ischeck_str(char *str, int (*f)(int));
-int				ft_limits(t_data *data);
 int				ft_error(t_data *data, const char *msg);
-int				ft_arg_check(char **av);
+void			ft_exit(t_data *data);
 
 #endif

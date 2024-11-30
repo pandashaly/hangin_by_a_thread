@@ -55,7 +55,7 @@ static bool	ft_take_chopsticks(t_philo *philo)
 	return (true);
 }
 
-static bool	ft_eating(t_philo *philo)
+bool	ft_eating(t_philo *philo)
 {
 	if (!ft_take_chopsticks(philo))
 		return (false);
@@ -68,22 +68,19 @@ static bool	ft_eating(t_philo *philo)
 	return (true);
 }
 
-void	*ft_routine(void *p)
+void	ft_dead(t_philo *philo)
 {
-	t_philo	*philo;
-
-	philo = (t_philo *)p;
-	if (philo->id % 2)
-		ft_usleep(100);
-	while (true)
+	if (!philo->data->stop)
 	{
-		if (!ft_eating(philo) || philo->full || philo->data->stop)
-			break ;
-		ft_nap(philo);
-		ft_usleep(philo->data->nap_t);
-		ft_think(philo);
+		pthread_mutex_lock(&philo->data->print_lock);
+		if (!philo->data->stop)
+		{
+			printf(
+				BRED"%ld"RESET" - 🐼 Panda %d has died.  💀\n",
+				ft_time() - philo->data->start_t,
+				philo->id + 1
+				);
+		}
+		pthread_mutex_unlock(&philo->data->print_lock);
 	}
-	if (philo->l_chopstick == philo->r_chopstick)
-		pthread_mutex_unlock(philo->l_chopstick);
-	return (NULL);
 }

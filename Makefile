@@ -17,11 +17,11 @@ IFLAGS = -I$(INC)
 
 # ================SRCS=================
 SRCS = main.c \
-		init.c \
-		parser.c \
-		utils.c \
-		actions.c \
 		run.c \
+		init.c \
+		utils.c \
+		parser.c \
+		routine.c \
 
 OBJS = $(SRCS:.c=.o)
 

@@ -1,11 +1,6 @@
 
 #include "inc/philo.h"
 
-/*./philo <num_of_philos> <time_to_ded> 
-<time_to_eat> <time_to_sleep> 
-[num times each philo must eat]
-./philo 5 800 200 200*/
-
 int	ft_parser(t_data *data, int ac, char **av)
 {
 	if (ac == 1 || ac > 6)
@@ -50,21 +45,6 @@ int	ft_atoi(const char *nptr)
 		v = (v * 10) + (*c++ - '0');
 	return (v * o);
 }
-
-// int	ft_ischeck_str(char *str, int (*f)(int))
-// {
-// 	while (*str)
-// 		if (!f(*str++))
-// 			return (0);
-// 	return (1);
-// }
-
-// int	ft_isdigit(int c)
-// {
-// 	if (c >= 48 && c <= 57)
-// 		return (2048);
-// 	return (0);
-// }
 
 int	ft_limits(t_data *data)
 {
