@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philo.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ssottori <ssottori@student.42london.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/30 16:39:29 by ssottori          #+#    #+#             */
+/*   Updated: 2024/11/30 16:39:31 by ssottori         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #ifndef PHILO_H
 # define PHILO_H
@@ -65,12 +76,12 @@ typedef struct s_data
 
 /*     ROUTINE     */
 void			*ft_routine(void *p);
-void			ft_taken_chopstick(t_philo *philo);
-void			ft_eat(t_philo *philo);
-void			ft_nap(t_philo *philo);
-void			ft_think(t_philo *philo);
-void			ft_dead(t_philo *philo);
-bool			ft_eating(t_philo *philo);
+void			ft_taken_chopstick(t_philo *panda);
+void			ft_eat(t_philo *panda);
+void			ft_nap(t_philo *panda);
+void			ft_think(t_philo *panda);
+void			ft_dead(t_philo *panda);
+bool			ft_eating(t_philo *panda);
 void			ft_zookeeper(t_data *data);
 
 /*     INIT     */
@@ -86,7 +97,7 @@ int				ft_atoi(const char *nptr);
 int				ft_limits(t_data *data);
 
 /*     UTILS     */
-void			ft_write(t_philo *philo, const char *msg);
+void			ft_write(t_philo *panda, const char *msg);
 bool			ft_full(t_data *data);
 long			ft_time(void);
 void			ft_usleep(long time);

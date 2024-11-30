@@ -1,42 +1,53 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   routine.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ssottori <ssottori@student.42london.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/30 16:40:17 by ssottori          #+#    #+#             */
+/*   Updated: 2024/11/30 16:40:18 by ssottori         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "inc/philo.h"
 
-void	ft_taken_chopstick(t_philo *philo)
+void	ft_taken_chopstick(t_philo *panda)
 {
-	ft_write(philo, CHOP);
+	ft_write(panda, CHOP);
 }
 
-void	ft_eat(t_philo *philo)
+void	ft_eat(t_philo *panda)
 {
-	ft_write(philo, EAT);
+	ft_write(panda, EAT);
 }
 
-void	ft_nap(t_philo *philo)
+void	ft_nap(t_philo *panda)
 {
-	ft_write(philo, NAP);
+	ft_write(panda, NAP);
 }
 
-void	ft_think(t_philo *philo)
+void	ft_think(t_philo *panda)
 {
-	ft_write(philo, THINK);
+	ft_write(panda, THINK);
 }
 
 void	*ft_routine(void *p)
 {
-	t_philo	*philo;
+	t_philo	*panda;
 
-	philo = (t_philo *)p;
-	if (philo->id % 2)
+	panda = (t_philo *)p;
+	if (panda->id % 2)
 		ft_usleep(100);
 	while (true)
 	{
-		if (!ft_eating(philo) || philo->full || philo->data->stop)
+		if (!ft_eating(panda) || panda->full || panda->data->stop)
 			break ;
-		ft_nap(philo);
-		ft_usleep(philo->data->nap_t);
-		ft_think(philo);
+		ft_nap(panda);
+		ft_usleep(panda->data->nap_t);
+		ft_think(panda);
 	}
-	if (philo->l_chopstick == philo->r_chopstick)
-		pthread_mutex_unlock(philo->l_chopstick);
+	if (panda->l_chopstick == panda->r_chopstick)
+		pthread_mutex_unlock(panda->l_chopstick);
 	return (NULL);
 }

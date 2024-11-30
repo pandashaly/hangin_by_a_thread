@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ssottori <ssottori@student.42london.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/30 16:40:28 by ssottori          #+#    #+#             */
+/*   Updated: 2024/11/30 16:40:30 by ssottori         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "inc/philo.h"
 
@@ -34,19 +45,19 @@ void	ft_usleep(long time)
 		usleep(100);
 }
 
-void	ft_write(t_philo *philo, const char *msg)
+void	ft_write(t_philo *panda, const char *msg)
 {
-	if (!philo->data->stop)
+	if (!panda->data->stop)
 	{
-		pthread_mutex_lock(&philo->data->print_lock);
-		if (!philo->data->stop)
+		pthread_mutex_lock(&panda->data->print_lock);
+		if (!panda->data->stop)
 		{
 			printf(
 				BBLU"%ld"RESET" - 🐼 Panda %d %s\n",
-				ft_time() - philo->data->start_t,
-				philo->id + 1, msg);
+				ft_time() - panda->data->start_t,
+				panda->id + 1, msg);
 		}
-		pthread_mutex_unlock(&philo->data->print_lock);
+		pthread_mutex_unlock(&panda->data->print_lock);
 	}
 }
 

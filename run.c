@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   run.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ssottori <ssottori@student.42london.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/30 16:40:23 by ssottori          #+#    #+#             */
+/*   Updated: 2024/11/30 16:40:25 by ssottori         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "inc/philo.h"
 
@@ -30,57 +41,57 @@ void	ft_zookeeper(t_data *data)
 	}
 }
 
-static bool	ft_take_chopsticks(t_philo *philo)
+static bool	ft_take_chopsticks(t_philo *panda)
 {
-	if (philo->data->stop)
+	if (panda->data->stop)
 		return (false);
-	if (philo->l_chopstick < philo->r_chopstick)
+	if (panda->l_chopstick < panda->r_chopstick)
 	{
-		pthread_mutex_lock(philo->l_chopstick);
-		ft_taken_chopstick(philo);
-		if (philo->l_chopstick == philo->r_chopstick)
+		pthread_mutex_lock(panda->l_chopstick);
+		ft_taken_chopstick(panda);
+		if (panda->l_chopstick == panda->r_chopstick)
 			return (false);
-		pthread_mutex_lock(philo->r_chopstick);
-		ft_taken_chopstick(philo);
+		pthread_mutex_lock(panda->r_chopstick);
+		ft_taken_chopstick(panda);
 	}
 	else
 	{
-		pthread_mutex_lock(philo->r_chopstick);
-		ft_taken_chopstick(philo);
-		if (philo->l_chopstick == philo->r_chopstick)
+		pthread_mutex_lock(panda->r_chopstick);
+		ft_taken_chopstick(panda);
+		if (panda->l_chopstick == panda->r_chopstick)
 			return (false);
-		pthread_mutex_lock(philo->l_chopstick);
-		ft_taken_chopstick(philo);
+		pthread_mutex_lock(panda->l_chopstick);
+		ft_taken_chopstick(panda);
 	}
 	return (true);
 }
 
-bool	ft_eating(t_philo *philo)
+bool	ft_eating(t_philo *panda)
 {
-	if (!ft_take_chopsticks(philo))
+	if (!ft_take_chopsticks(panda))
 		return (false);
-	ft_eat(philo);
-	philo->last_meal = ft_time() - philo->data->start_t;
-	philo->eat_cnt++;
-	ft_usleep(philo->data->eat_t);
-	pthread_mutex_unlock(philo->l_chopstick);
-	pthread_mutex_unlock(philo->r_chopstick);
+	ft_eat(panda);
+	panda->last_meal = ft_time() - panda->data->start_t;
+	panda->eat_cnt++;
+	ft_usleep(panda->data->eat_t);
+	pthread_mutex_unlock(panda->l_chopstick);
+	pthread_mutex_unlock(panda->r_chopstick);
 	return (true);
 }
 
-void	ft_dead(t_philo *philo)
+void	ft_dead(t_philo *panda)
 {
-	if (!philo->data->stop)
+	if (!panda->data->stop)
 	{
-		pthread_mutex_lock(&philo->data->print_lock);
-		if (!philo->data->stop)
+		pthread_mutex_lock(&panda->data->print_lock);
+		if (!panda->data->stop)
 		{
 			printf(
 				BRED"%ld"RESET" - 🐼 Panda %d has died.  💀\n",
-				ft_time() - philo->data->start_t,
-				philo->id + 1
+				ft_time() - panda->data->start_t,
+				panda->id + 1
 				);
 		}
-		pthread_mutex_unlock(&philo->data->print_lock);
+		pthread_mutex_unlock(&panda->data->print_lock);
 	}
 }
