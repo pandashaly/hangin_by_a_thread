@@ -1,14 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   philo.h                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ssottori <ssottori@student.42london.com    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/18 16:05:37 by otodd             #+#    #+#             */
-/*   Updated: 2024/11/30 11:35:42 by ssottori         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 
 #ifndef PHILO_H
 # define PHILO_H
@@ -25,11 +14,18 @@
 # include <stdbool.h>
 # include <stdint.h>
 
-# define CHOP "has taken a chopstick"
-# define THINK "is thinking about food."
-# define NAP "is sleeping..."
-# define EAT "is eating a donut."
-# define DEAD "has died."
+# define WRONG_AV "Error: Invalid input character."
+# define MAX_P_ERR "Error: Num of philos must be between 1 and 200."
+# define MAX_T_ERR "Error: Time values must be between 1 and 10000 ms."
+# define MET_ERR "Error: Num of times each philo must eat must be + or -1."
+
+# define CHOP "has taken a chopstick.  🥢"
+# define THINK "is thinking about food.  🤤"
+# define NAP "is sleeping...  😴"
+# define EAT "is eating ramen.  🍜"
+
+# define MAX_TIME 100000
+# define MAX_PHILOS 200
 
 /*    COLOURS     */
 
@@ -79,7 +75,7 @@ void			ft_zookeeper(t_data *data);
 
 /*     INIT     */
 
-bool			ft_parse_args(t_data *data, int ac, char **av);
+int				ft_parser(t_data *data, int ac, char **av);
 void			ft_init_data(t_data *data);
 void			ft_init_philos(t_data *data);
 void			ft_init_mutexes(t_data *data);
@@ -87,12 +83,15 @@ void			ft_exit(t_data *data);
 void			ft_init_threads(t_data *data);
 
 /*     UTILS     */
-void	ft_write(t_philo *philo, const char *msg);
+void			ft_write(t_philo *philo, const char *msg);
 bool			ft_full(t_data *data);
 long			ft_time(void);
 void			ft_usleep(long time);
 int				ft_atoi(const char *nptr);
 int				ft_isdigit(int c);
 int				ft_ischeck_str(char *str, int (*f)(int));
+int				ft_limits(t_data *data);
+int				ft_error(t_data *data, const char *msg);
+int				ft_arg_check(char **av);
 
 #endif

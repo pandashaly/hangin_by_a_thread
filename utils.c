@@ -1,14 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ssottori <ssottori@student.42london.com    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/18 17:25:00 by otodd             #+#    #+#             */
-/*   Updated: 2024/11/30 11:32:04 by ssottori         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 
 #include "inc/philo.h"
 
@@ -53,10 +42,18 @@ void	ft_write(t_philo *philo, const char *msg)
 		if (!philo->data->stop)
 		{
 			printf(
-				BBLU"%ld"RESET" - Panda %d %s\n",
+				BBLU"%ld"RESET" - 🐼 Panda %d %s\n",
 				ft_time() - philo->data->start_t,
 				philo->id + 1, msg);
 		}
 		pthread_mutex_unlock(&philo->data->print_lock);
 	}
+}
+
+int	ft_error(t_data *data, const char *msg)
+{
+	printf(BRED"%s"RESET"\n", msg);
+	if (data)
+		ft_exit(data);
+	return (1);
 }

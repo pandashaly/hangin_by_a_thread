@@ -1,80 +1,113 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ssottori <ssottori@student.42london.com    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/23 17:17:43 by otodd             #+#    #+#             */
-/*   Updated: 2024/11/30 11:13:59 by ssottori         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 
 #include "inc/philo.h"
 
-bool	ft_parse_args(t_data *data, int ac, char **av)
+/*./philo <num_of_philos> <time_to_ded> 
+<time_to_eat> <time_to_sleep> 
+[num times each philo must eat]
+./philo 5 800 200 200*/
+
+int	ft_parser(t_data *data, int ac, char **av)
 {
 	if (ac == 1 || ac > 6)
-		return (false);
-	if (!ft_ischeck_str(av[1], ft_isdigit))
-		return (false);
+		return (0);
+	if (ft_arg_check(av))
+		return (0);
 	data->nop = ft_atoi(av[1]);
 	if (!data->nop)
-		return (false);
-	if (!ft_ischeck_str(av[2], ft_isdigit))
-		return (false);
+		return (0);
 	data->life_t = ft_atoi(av[2]);
-	if (!ft_ischeck_str(av[3], ft_isdigit))
-		return (false);
 	data->eat_t = ft_atoi(av[3]);
-	if (!ft_ischeck_str(av[4], ft_isdigit))
-		return (false);
 	data->nap_t = ft_atoi(av[4]);
 	if (ac == 6)
-	{
-		if (!ft_ischeck_str(av[5], ft_isdigit))
-			return (false);
 		data->must_eat_t = ft_atoi(av[5]);
-	}
 	else
 		data->must_eat_t = -1;
-	return (true);
+	if (data->life_t <= 0
+		|| data->eat_t <= 0 || data->nap_t <= 0
+		|| (ac == 6 && data->must_eat_t <= 0))
+		return (0);
+	return (ft_limits(data));
 }
 
 int	ft_atoi(const char *nptr)
 {
-	int		value;
-	int		operation;
+	int		v;
+	int		o;
 	char	*c;
 
 	c = (char *)nptr;
-	operation = 1;
-	value = 0;
-	while ((*c == ' ') || (*c == '\t')
-		|| (*c == '\v') || (*c == '\r') || (*c == '\n') || (*c == '\f'))
+	o = 1;
+	v = 0;
+	while (*c == ' ' || (*c >= 9 && *c <= 13))
 		c++;
 	if (*c == '+' || *c == '-')
 	{
 		if (*c == '-')
-			operation *= -1;
+			o *= -1;
 		c++;
 	}
 	while (*c >= '0' && *c <= '9')
-		value = (value * 10) + (*c++ - '0');
-	return (value * operation);
+		v = (v * 10) + (*c++ - '0');
+	return (v * o);
 }
 
-int	ft_ischeck_str(char *str, int (*f)(int))
+// int	ft_ischeck_str(char *str, int (*f)(int))
+// {
+// 	while (*str)
+// 		if (!f(*str++))
+// 			return (0);
+// 	return (1);
+// }
+
+// int	ft_isdigit(int c)
+// {
+// 	if (c >= 48 && c <= 57)
+// 		return (2048);
+// 	return (0);
+// }
+
+int	ft_limits(t_data *data)
 {
-	while (*str)
-		if (!f(*str++))
-			return (0);
+	if (data->nop > MAX_PHILOS || data->nop <= 0)
+	{
+		ft_error(data, MAX_P_ERR);
+		return (0);
+	}
+	if (data->life_t > MAX_TIME
+		|| data->eat_t > MAX_TIME || data->nap_t > MAX_TIME)
+	{
+		ft_error(data, MAX_T_ERR);
+		return (0);
+	}
+	if (data->must_eat_t < -1)
+	{
+		ft_error(data, MET_ERR);
+		return (0);
+	}
 	return (1);
 }
 
-int	ft_isdigit(int c)
+int	ft_arg_check(char **av)
 {
-	if (c >= 48 && c <= 57)
-		return (2048);
+	int	i;
+	int	j;
+
+	i = 1;
+	while (av[i])
+	{
+		j = 0;
+		while (av[i][j])
+		{
+			if (av[i][j] == ' ')
+			{
+				j++;
+				continue ;
+			}
+			if ((av[i][j] < '0' || av[i][j] > '9'))
+				return (ft_error(NULL, WRONG_AV));
+			j++;
+		}
+		i++;
+	}
 	return (0);
 }
