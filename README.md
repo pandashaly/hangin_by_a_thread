@@ -12,8 +12,6 @@
 <p align="center">
   <p>The Dining Philosophers problem is a fundamental example in both computer science and philosophy. It illustrates the challenges of resource allocation and process synchronization in concurrent programming. By simulating philosophers who must share limited resources (chopstick) without causing deadlock or starvation, this problem teaches important concepts that are applicable to real-world systems where resources are limited and processes must be managed efficiently.</p>
 
-![Philos](https://media.licdn.com/dms/image/D5612AQG6FH3H10niqg/article-cover_image-shrink_720_1280/0/1690698292358?e=1726099200&v=beta&t=ZkY6trlXGw6JXptqsEKDog3LT5PAAZ5LW4DXVcWRJ04)
-
 <p align="center">
   <img src="philos.png" alt="Dining Philosophers"/>
 </p>
