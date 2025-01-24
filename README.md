@@ -80,18 +80,25 @@ This will run the simulation with 5 philosophers, where each philosopher has 800
 
 ## 📁 Code Structure
 
-```rust
+```bash
 42-philosophers/
+Cub3D/
+├── inc/
+├─────philos.h          
+├── Makefile         
+├── README.md        
+├── init.c           
+├── main.c           
+├── parser.c         
+├── philos.png       
+├── routine.c        
+├── run.c            
+└── utils.c          
 ├── Makefile
 ├── main.c
 ├── philos.h
 └── README.md
 ```
-
-- `Makefile`: Contains rules to compile the project.
-- `main.c`: Contains the main program and function implementations.
-- `philosophers.h`: Header file with struct definitions and function prototypes.
-- `README.md`: This readme file.
 
 ### 📚 What I Learned
 
